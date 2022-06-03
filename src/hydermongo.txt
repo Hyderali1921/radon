@@ -1,0 +1,3 @@
+nkkytnwlsFVYce0x
+//mongodb+srv://hyderali1921:<password>@cluster0.apaia.mongodb.net/test
+mongodb+srv://hyderali1921:nkkytnwlsFVYce0x@cluster0.apaia.mongodb.net/hyderali1921
