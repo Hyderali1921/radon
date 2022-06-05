@@ -99,16 +99,16 @@ router.get('/Movies', function(req, res) {
 });
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-// router.get('/movies/:indexNumber', function(req, res) {
-//     const movie = ['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
-//     let num = req.params.indexNumber
-//     if (num >= movie.length) {
-//         console.log("use a valid indexNumber")
-//     }
-//     res.send({
-//         data: 'Movie name is ' + movie[num]
-//     })
-// });
+router.get('/movies/:indexNumber', function(req, res) {
+    const movie = ['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
+    let num = req.params.indexNumber
+    if (num >= movie.length) {
+        console.log("use a valid indexNumber")
+    }
+    res.send({
+        data: 'Movie name is ' + movie[num]
+    })
+});
 // ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 router.get('/moviess/:indexNumberr', function(req, res) {
     const movies = ['Rang de basanti', 'The shining', 'Lord of the rings', 'Batman begins']
@@ -157,5 +157,33 @@ router.get('/moviees/:filmId', function(req, res) {
         res.send(idName || "no film exist")
     }
     console.log("response sent")
+});
+// /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+router.get('/sol1', function(req, res) {
+
+        //logic : sum of numbers is n(n+1)/2..so get sum of all numbers in array. now take sum of numbers till last digit in the array
+        let arr = [1, 2, 3, 5, 6, 7]
+        let missingNumber
+            ///LOGIC WILL GO HERE 
+        for (i = 0; i < arr.length - 1; i++) {
+            if (arr[i] + 1 != arr[i + 1]) {
+                missingNumber = arr[i] + 1
+                res.send({ data: "the missing number is" + missingNumber });
+            }
+        }
+    })
+    // //////////////////////////////////////////////////////////////////////////////////////////////
+router.get("/sol2", function(req, res) {
+    //logic : sum of n consecutive numbers is [ n * (first + last) / 2  ]..so get sum of all numbers in array. now take sum of n consecutive numbers.. n would be length+1 as 1 number is missing
+    let arr1 = [33, 34, 35, 37, 38]
+    let missingNumber
+    for (i = 0; i < arr1.length - 1; i++) {
+        if (arr1[i] + 1 != arr1[i + 1]) {
+            missingNumber = arr1[i] + 1
+
+            res.send({ data: "the missing no is" + missingNumber });
+        }
+    }
+
 });
 module.exports = router;
