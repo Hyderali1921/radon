@@ -27,12 +27,20 @@ const getBooksData = async function(req, res) {
     res.send({ data: books })
 }
 
+
+// const newschema = async function(req, res) {
+//     let update = await bookModel.find().update({
+//         bookModel.ratings>3.5
+//     }, { $set: {10} }, { new: true })
+//     res.send({ data: update })
+// }
+
 // const getBooksWithAuthorDetails = async function (req, res) {
 //     let specificBook = await bookModel.find().populate('author_id')
 //     res.send({data: specificBook})
 
 // }
-
+// module.exports.newschema = newschema
 module.exports.createBook = createBook
 
 module.exports.getBooksData = getBooksData

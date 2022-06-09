@@ -5,4 +5,7 @@ const createPublisher = async function(req, res) {
     let saveData = await publisherModel.create(data)
     res.send({ msg: saveData })
 }
+
 module.exports.createPublisher = createPublisher
+
+// publisher

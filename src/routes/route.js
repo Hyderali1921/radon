@@ -6,10 +6,10 @@ const bookController = require("../controllers/bookController")
 const publisherController = require("../controllers/publisherController")
 
 
-router.post("/createAuthor", authorController.createAuthor)
+// router.put("/newschema", bookController.newschema)
 
 router.post("/createpublisher", publisherController.createPublisher)
-
+router.post("/createAuthor", authorController.createAuthor)
 router.post("/createBook", bookController.createBook)
 
 // router.get("/getAuthorsData", authorController.getAuthorsData)
