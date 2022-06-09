@@ -30,11 +30,19 @@ const authorOfBook = async function(req, res) {
     res.send({ msg: author, cost })
 
 }
-const costList = async function(req, res) {
-    let listOfBooks = await newBookModel.find({ price: { $gte: 50, $lte: 100 } }).select({ author_id: 1, })
-    let authornames = await authorModel.find({ author_id: listOfBooks.map(ele => ele.author_id) }).select({ author_name: 1, author_id: 1, _id: 0 })
+const costList = async function(req,res){
+    const bookData = await ookModel.find({price: {$gte: 50, $lte: 100}}).select({author_id:1, _id:0 })
+    const id = bookData.map(inp => inp.author_id)
 
-    res.send({ msg: authornames })
+    let temp = []
+
+    for(let i=0;i<id.length;i++){
+        let x = id[i]
+        const author = await authorModel.find({ author_id:x}).select({author_name:1, _id:0})
+        temp.push(author)
+    }
+    const author_name = temp.flat()
+    res.send({msg: author_name})
 }
 
 module.exports.costList = costList
