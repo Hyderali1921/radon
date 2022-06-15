@@ -25,21 +25,8 @@ const userLogin = async function (req, res) {
 };
 
 const getUserDetails = async function (req, res) {
-  let token = req.headers["x-Auth-token"];
-  if (!token) {
-
-    token = req.headers["x-auth-token"];
-  }
-  if (!token) {
-
-    return res.send({ status: false, Msg: "Token must be present" })
-  }
+  
   // If a token is present then decode the token with verify function
-
-  let decodedToken = jwt.verify(token, "functionup-radon");
-  if (!decodedToken) {
-    return res.send({ status: false, Msg: "Token is Invalid" })
-  }
   let userId = req.params.userId
   let userDetails = await UserModel.findById(userId)
   if (!userDetails) {
@@ -75,6 +62,23 @@ const deleteUser = async function (req, res) {
   res.send({ status:true, data: deleteUser })
 };
 
+
+
+const postMessage = async function (req, res) {
+  let message = req.body.message
+  
+  let user = await UserModel.findById(req.params.userId)
+  if(!user) return res.send({status: false, msg: 'No such user exists'})
+  
+  let updatedPosts = user.posts
+  //add the message to user's posts
+  updatedPosts.push(message)
+  let updatedUser = await UserModel.findOneAndUpdate({_id: user._id},{posts: updatedPosts}, {new: true})
+
+  //return the updated user document
+  return res.send({status: true, data: updatedUser})
+}
+module.exports.postMessage = postMessage
 module.exports.createUser = createUser
 module.exports.userLogin = userLogin
 module.exports.getUserDetails = getUserDetails
