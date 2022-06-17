@@ -30,7 +30,7 @@ const authorise = function(req, res, next) {try{
    }catch(err){res.status(500).send({msg:"server error",error:err.message})}
     next()
   }
-
+// midw
 module.exports.auth = auth
 
 module.exports.authorise=authorise
