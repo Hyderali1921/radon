@@ -1,4 +1,9 @@
 const blogModel=require("../Models/blogModel")
+const jwt = require("jsonwebtoken");
+// const TAGS=[]
+// const CATEGORY=[]
+// const SUBCATEGORY=[]
+
 
 const createBlogDoc = async function (req, res) {
     try {
@@ -50,13 +55,68 @@ const blogs = async (req,res)=>{
                 return t===tag;
             })||-1) + 1 })
     
-           if(!blogs){
+           if(Object.keys(blogs).length===0){
                return res.status(404).send({status:false,msg:"Data not Found"})
             }
             
             return res.status(200).send({status:true,data:blogs})
     
     }
+
+
+    // function minimumCost(a, b)
+    // {
+    //     // Stores the frequency of string
+    //     // a and b respectively
+    //     var fre1 = Array(256).fill(0), fre2= Array(256).fill(0);
+     
+    //     // Store the frequencies of
+    //     // characters in a
+    //     a.split('').forEach(c => {
+    //         fre1[c.charCodeAt(0)]++;
+    //     });
+     
+    //     // Store the frequencies of
+    //     // characters in b
+    //     b.split('').forEach(c => {
+    //         fre2[c.charCodeAt(0)]++;
+    //     });
+     
+    //     // Minimum cost to convert A to B
+    //     var mincost = 0;
+     
+    //     // Find the minimum cost
+    //     for (var i = 0; i < 256; i++) {
+    //         mincost += Math.abs(fre1[i]
+    //                        - fre2[i]);
+    //     }
+     
+    //     // Print the minimum cost
+    //     return( mincost );
+
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     module.exports.blogs=blogs
