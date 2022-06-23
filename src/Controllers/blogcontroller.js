@@ -1,5 +1,5 @@
 const blogModel=require("../Models/blogModel")
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const moment = require('moment')
 const lodash = require('lodash')
 const mongoose = require("mongoose")
@@ -80,7 +80,7 @@ const blogPut = async (req, res) => {
         if (Object.keys(blog).length===0) return res.status(400).send({ status: false, msg: "Bad Request" });
         let blogId = req.params.blogId;
         let blogToBeUpdted = await blogModel.findOne({ _id: blogId, isDeleted: false })
-        if (Object.keys(blogToBeUpdted).length===0) return res.status(404).send({ status: false, msg: "Blog does not exist" });
+        if (!blogToBeUpdted) return res.status(404).send({ status: false, msg: "Blog does not exist" });
         blog["tags"] = lodash.uniq(req.body.tags.concat(blogToBeUpdted.tags));
         blog["subCategory"] = lodash.uniq(req.body.subCategory.concat(blogToBeUpdted.subCategory));
         blog["isPublished"] = true
@@ -107,7 +107,7 @@ const blogDeletById = async (req, res) => {
     if (!req.params.blogId) return res.status(400).send({ status: false, msg: "Bad Request" });
     let blogToBeDeleted = await blogModel.findOne({ _id: req.params.blogId, isDeleted: false })
     if (!blogToBeDeleted) return res.status(404).send({ status: false, msg: "Blog DoesNot Exist" });
-    await blogModel.findOneAndUpdate({ _id: req.params.blogId }, { isDeleted: true })
+    await blogModel.findOneAndUpdate({ _id:req.params.blogId}, { isDeleted: true })
     res.status(200).send()
     } catch (error) {
         res.status(500).send({ status: false, msg: error.message })
