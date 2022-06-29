@@ -1,4 +1,5 @@
 const authorModel=require("../Models/authorModel")
+const blogModel=require("../Models/blogModel")
 const jwt=require("jsonwebtoken")
 const authenticate=async function (req, res,next) {
     try{ 
@@ -20,7 +21,7 @@ const authenticate=async function (req, res,next) {
   catch(err){res.status(500).send({ msg: "Error", error: err.message })}
   next()
 }
-const authorise = function(req, res, next) {
+const authorise = async function(req, res, next) {
     try{    
     let token = req.headers["x-api-key"];
     if (!token) {
@@ -36,6 +37,30 @@ const authorise = function(req, res, next) {
 }
 catch(err){ res.status(500).send({ msg: "Error", error: err.message })}}
 
+
+const authorised = async function(req, res, next) {
+  try{    
+  let token = req.headers["x-api-key"];
+  if (!token) {
+
+      token = req.headers["X-Api-Key"];
+    }
+    
+  let decodedToken = jwt.verify(token,"blogProject");
+  if(!req.params.blogId) return res.send({error:"error"})
+  let blogData= await blogModel.findById(req.params.blogId)
+  if(!blogData)return res.send({error:"error"}) 
+  let findAuthorId = decodedToken.authorId
+  let checkPathAuthor = blogData.authorId;
+  if (checkPathAuthor !== findAuthorId) 
+  return res.status(400).send({status: false, msg: 'User logged is not allowed to modify the requested users data'})
+ 
+}
+catch(err){ res.status(500).send({ msg: "Error", error: err.message })}
+
+next()
+
+}
 module.exports.authorise=authorise
 module.exports.authenticate=authenticate
-  
+module.exports.authorised=authorised

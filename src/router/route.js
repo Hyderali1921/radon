@@ -10,8 +10,8 @@ router.post("/authors", authorController.createAuthor);
 router.post("/blogs", blogController.createBlogDoc);
 router.get("/blogs",blogController.blogs)
 router.put("/blogPut/:blogId",blogController.blogPut);
-router.delete("/blogDel/:blogId",blogController.blogDeletById)
-router.delete("/blogDelByQuery",middleware.authenticate,middleware.authorise,blogController.blogDeletByParams)
+router.delete("/blogDel/:blogId",middleware.authenticate,middleware.authorised, blogController.blogDeletById)
+// router.delete("/blogDelByQuery",middleware.authenticate,middleware.authorise,blogController.blogDeletByParams)
 
 router.post("/login",login.authorLogin)
 module.exports = router;

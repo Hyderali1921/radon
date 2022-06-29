@@ -31,7 +31,7 @@ const createBlogDoc = async function (req, res) {
     }
 }
 
-const blogs = async (req,res)=>{
+const getblogs = async (req,res)=>{
     
     let authorId = req.query.authorId || false;
     let category = req.query.category || false;
@@ -75,7 +75,7 @@ const blogs = async (req,res)=>{
 
 const blogPut = async (req, res) => {
 
-    // try {
+    try {
         let blog = req.body;
         if (Object.keys(blog).length===0) return res.status(400).send({ status: false, msg: "Bad Request" });
         let blogId = req.params.blogId;
@@ -93,9 +93,9 @@ const blogPut = async (req, res) => {
         }
 
         return res.status(201).send({ status: true, data: blogUpdated })
-    // } catch (error) {
-        // res.status(500).send({ status: false, msg: error.message })
-    // }
+    } catch (error) {
+        res.status(500).send({ status: false, msg: error.message })
+    }
 
 }
 
